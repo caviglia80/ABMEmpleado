@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
     useValue: { color: 'primary' },
-}]
+  }]
 })
 export class AddEditEmpleadoComponent implements OnInit {
   estadosCiviles: any[] = ['Soltero', 'Casado', 'Divorciado'];
@@ -22,14 +22,14 @@ export class AddEditEmpleadoComponent implements OnInit {
 
   myForm: FormGroup;
   constructor(private fb: FormBuilder,
-              private empleadoService: EmpleadoService, 
-              private route: Router,
-              private snackBar: MatSnackBar,
-              private aRoute: ActivatedRoute) { 
+    private empleadoService: EmpleadoService,
+    private route: Router,
+    private snackBar: MatSnackBar,
+    private aRoute: ActivatedRoute) {
     this.myForm = this.fb.group({
       nombreCompleto: ['', [Validators.required, Validators.maxLength(20)]],
-      correo: ['',  [Validators.required, Validators.email]],
-      fechaIngreso: ['',  [Validators.required]],
+      correo: ['', [Validators.required, Validators.email]],
+      fechaIngreso: ['', [Validators.required]],
       telefono: ['', [Validators.required]],
       estadoCivil: ['', [Validators.required]],
       sexo: ['', [Validators.required]],
@@ -48,12 +48,12 @@ export class AddEditEmpleadoComponent implements OnInit {
 
   guardarEmpleado() {
     const empleado: Empleado = {
-      nombreCompleto: this.myForm.get('nombreCompleto').value,
-      correo: this.myForm.get('correo').value,
-      fechaIngreso: this.myForm.get('fechaIngreso').value,
-      telefono: this.myForm.get('telefono').value,
-      estadoCivil: this.myForm.get('estadoCivil').value,
-      sexo: this.myForm.get('sexo').value,
+      nombreCompleto: this.myForm.get('nombreCompleto')!.value,
+      correo: this.myForm.get('correo')!.value,
+      fechaIngreso: this.myForm.get('fechaIngreso')!.value,
+      telefono: this.myForm.get('telefono')!.value,
+      estadoCivil: this.myForm.get('estadoCivil')!.value,
+      sexo: this.myForm.get('sexo')!.value,
     };
 
     if (this.idEmpleado !== undefined) {

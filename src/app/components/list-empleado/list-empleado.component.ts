@@ -16,16 +16,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ListEmpleadoComponent implements OnInit {
   displayedColumns: string[] = ['nombreCompleto', 'correo', 'estadoCivil', 'fechaIngreso', 'sexo', 'telefono', 'acciones'];
   dataSource = new MatTableDataSource();
-  listEmpleado: Empleado[];
+  listEmpleado: Empleado[] = [];
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort?: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator?: MatPaginator;
   constructor(private empleadoService: EmpleadoService, public dialog: MatDialog,
-              public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.cargarEmpleados();
-  
+
   }
 
   applyFilter(event: Event) {
@@ -35,16 +35,16 @@ export class ListEmpleadoComponent implements OnInit {
 
   cargarEmpleados() {
     this.listEmpleado = this.empleadoService.getEmpleados();
-    this.dataSource = new MatTableDataSource(this.listEmpleado);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.data = this.listEmpleado;
+    this.dataSource.paginator = this.paginator!;
+    this.dataSource.sort = this.sort!;
   }
 
   eliminarEmpleado(index: number) {
 
     const dialogRef = this.dialog.open(MensajeConfirmacionComponent, {
       width: '350px',
-      data: {mensaje: 'Esta seguro que desea eliminar el Empleado?'}
+      data: { mensaje: 'Esta seguro que desea eliminar el Empleado?' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
